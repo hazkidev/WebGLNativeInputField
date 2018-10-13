@@ -6,8 +6,9 @@
     if( !result ){
       result = defaultValue;
     }
-    var buffer = _malloc(lengthBytesUTF8(result) + 1);
-    writeStringToMemory(result, buffer);
+    var bufferSize = lengthBytesUTF8(result) + 1;
+    var buffer = _malloc(bufferSize);
+    stringToUTF8(result, buffer, bufferSize);
     return buffer;
   },
   SetupOverlayDialogHtml:function(title,defaultValue,okBtnText,cancelBtnText){
@@ -48,11 +49,13 @@
       var okFunction = 
         'document.getElementById("nativeInputDialog" ).style.display = "none";' + 
         'document.getElementById("nativeInputDialogCheck").checked = false;' +
-        'document.getElementById("canvas").style.display="";';
+        'var canvasElm = document.getElementById("canvas");' +
+        'if (canvasElm) { canvasElm.style.display=""; }'; // canvasが存在するなら
       var cancelFunction = 
-        'document.getElementById("nativeInputDialog" ).style.display = "none";'+ 
-        'document.getElementById("nativeInputDialogCheck").checked = true;'+
-        'document.getElementById("canvas").style.display="";';
+        'document.getElementById("nativeInputDialog" ).style.display = "none";' +
+        'document.getElementById("nativeInputDialogCheck").checked = true;' +
+        'var canvasElm = document.getElementById("canvas");' +
+        'if (canvasElm) { canvasElm.style.display=""; }'; // canvasが存在するなら
 
       var inputField = document.getElementById("nativeInputDialogInput");
       inputField.setAttribute( "onsubmit" , okFunction );
@@ -69,8 +72,9 @@
     document.getElementById("nativeInputDialog" ).style.display = "";
   },
   HideUnityScreenIfHtmlOverlayCant:function(){
-    if( navigator.userAgent.indexOf("Chrome/") < 0 ){
-      document.getElementById("canvas").style.display="none";
+    var canvasElm = document.getElementById("canvas");
+    if (canvasElm && navigator.userAgent.indexOf("Chrome/") < 0 ){
+      canvasElm.style.display="none";
     }
   },
   IsRunningOnEdgeBrowser:function(){
@@ -97,8 +101,9 @@
     if( inputField && inputField.value ){
       result = inputField.value;
     }
-    var buffer = _malloc(lengthBytesUTF8(result) + 1);
-    writeStringToMemory(result, buffer);
+    var bufferSize = lengthBytesUTF8(result) + 1;
+    var buffer = _malloc(bufferSize);
+    stringToUTF8(result, buffer, bufferSize);
     return buffer;
   }
 
