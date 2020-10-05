@@ -1,7 +1,9 @@
 {
     "name": "WebGLNativeInputField.Editor",
     "references": [
-        "WebGLNariveInputField.Runtime"
+        "WebGLNariveInputField.Runtime",
+        "Unity.TextMeshPro",
+        "Unity.TextMeshPro.Editor"
     ],
     "includePlatforms": [
         "Editor"
