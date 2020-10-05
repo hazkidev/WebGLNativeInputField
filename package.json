@@ -1,0 +1,10 @@
+{
+    "name": "webglnativeinputfield",
+    "displayName": "WebGLNativeInputField",
+	"version": "1.0.0",
+	"unity": "2018.3",
+	"description": "WebGL Native InputField",
+	"dependencies": {
+        "com.unity.ugui": "1.0.0"
+	}
+}
